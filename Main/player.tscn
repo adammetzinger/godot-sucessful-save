@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnqtaya3ujbxm"]
+
+[ext_resource type="Script" path="res://Main/Player.gd" id="1_cru6e"]
+[ext_resource type="Texture2D" uid="uid://qxh8py1sugnq" path="res://icon.svg" id="2_qldv2"]
+[ext_resource type="Script" path="res://Main/PlayerText.gd" id="3_5vs8v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vb22b"]
+radius = 27.0185
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_cru6e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.254902, 0.788235, 0, 1)
+position = Vector2(-2, -25)
+scale = Vector2(0.363281, 0.6875)
+texture = ExtResource("2_qldv2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -8)
+shape = SubResource("CircleShape2D_vb22b")
+
+[node name="Text" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.2, 1.2)
+script = ExtResource("3_5vs8v")
+
+[node name="CurrentHealth" type="RichTextLabel" parent="Text"]
+layout_mode = 0
+offset_left = -81.6667
+offset_top = -105.0
+offset_right = 87.3333
+offset_bottom = -65.0
+text = "Current Health: 100"
+
+[node name="CurrentPos" type="RichTextLabel" parent="Text"]
+layout_mode = 0
+offset_left = -133.333
+offset_top = -83.3333
+offset_right = 344.667
+offset_bottom = -43.3333
+text = "Current Position: (???.????, ???.????)"
+
+[connection signal="update_ui" from="." to="Text" method="_on_player_update_ui"]

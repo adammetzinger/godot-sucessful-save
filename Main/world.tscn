@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2ap6w2kpp4cg"]
+
+[ext_resource type="Texture2D" uid="uid://qxh8py1sugnq" path="res://icon.svg" id="1_c8b2e"]
+[ext_resource type="PackedScene" uid="uid://bnqtaya3ujbxm" path="res://Main/player.tscn" id="2_pv2qi"]
+[ext_resource type="Script" path="res://Main/Control.gd" id="3_dmhd1"]
+
+[node name="world" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="land" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="land"]
+offset_left = -19.0
+offset_top = -3.0
+offset_right = 1154.0
+offset_bottom = 717.0
+color = Color(0.380392, 0.576471, 0.737255, 1)
+
+[node name="Icon" type="Sprite2D" parent="land"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(391, 200.5)
+scale = Vector2(1.375, 2.38281)
+texture = ExtResource("1_c8b2e")
+
+[node name="Icon2" type="Sprite2D" parent="land"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(594, 297.5)
+scale = Vector2(3.42969, 1.95609)
+texture = ExtResource("1_c8b2e")
+
+[node name="Icon3" type="Sprite2D" parent="land"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(679, 436.5)
+scale = Vector2(3.42969, 1.95609)
+texture = ExtResource("1_c8b2e")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="land"]
+polygon = PackedVector2Array(316, 50, 368, 48, 464, 48, 474, 64, 480, 86, 479, 176, 778, 175, 792, 175, 801, 185, 815, 195, 813, 313, 861, 314, 882, 321, 899, 337, 898, 540, 887, 546, 857, 557, 496, 562, 461, 536, 458, 418, 407, 420, 374, 402, 378, 348, 319, 353, 304, 325, 309, 53, 269, 51, 247, 159, 247, 320, 278, 426, 343, 511, 412, 615, 547, 631, 697, 624, 808, 614, 906, 575, 933, 497, 944, 361, 916, 296, 859, 268, 842, 199, 828, 148, 745, 128, 645, 120, 529, 116, 495, 32, 191, 43, 261, 59, 271, 44, 312, 52)
+
+[node name="Player" parent="." instance=ExtResource("2_pv2qi")]
+position = Vector2(522, 311)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 145.0
+offset_top = -54.0
+offset_right = 185.0
+offset_bottom = -14.0
+script = ExtResource("3_dmhd1")
+
+[node name="plusButton" type="Button" parent="Control"]
+modulate = Color(0.337255, 1, 0.196078, 1)
+layout_mode = 0
+offset_left = 31.0
+offset_top = 268.0
+offset_right = 152.0
+offset_bottom = 329.0
+text = "+ 5 health"
+
+[node name="minusButton" type="Button" parent="Control"]
+modulate = Color(0.972549, 0.0196078, 0, 1)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 332.0
+offset_right = 152.0
+offset_bottom = 394.0
+text = "-5 health"
+
+[connection signal="change_health" from="Control" to="Player" method="_on_control_change_health"]
+[connection signal="pressed" from="Control/plusButton" to="Control" method="_on_plus_button_pressed"]
+[connection signal="pressed" from="Control/minusButton" to="Control" method="_on_minus_button_pressed"]
